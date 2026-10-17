@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Forest Dashboard</title>
+    <title>Smart Forest Dashboard - Pro</title>
     <style>
         :root {
             --bg-color: #0f1d15;
@@ -34,6 +34,7 @@
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
         }
         h2, h3 { color: var(--accent-color); }
         input, textarea, button, select {
@@ -57,11 +58,16 @@
         .hidden { display: none; }
         .activity-box {
             background: rgba(0,0,0,0.2);
-            padding: 10px;
+            padding: 12px;
             border-radius: 6px;
             font-size: 14px;
             margin-bottom: 15px;
             border-left: 4px solid var(--accent-color);
+        }
+        .section-box {
+            border-bottom: 1px solid #2e5a40;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -81,13 +87,13 @@
     <div id="dashboard-container" class="container hidden">
         <h2>🌿 स्वागत आहे, <span id="userEmailDisplay"></span></h2>
         
-        <!-- Activity Tracker (Live Time, Date & Location) -->
+        <!-- Activity Tracker -->
         <div class="activity-box" id="activityTracker">
-            📍 अ‍ॅक्टिव्हिटी लॉग लोड होत आहे...
+            📍 अ‍ॅक्टिव्हिटी लॉल लोड होत आहे...
         </div>
 
         <!-- Profile Section -->
-        <div style="border-bottom: 1px solid #2e5a40; padding-bottom: 15px; margin-bottom: 15px;">
+        <div class="section-box">
             <h3>👤 युजर प्रोफाइल</h3>
             <input type="text" id="profileName" placeholder="तुमचे पूर्ण नाव टाका">
             <input type="text" id="profileBio" placeholder="तुमची ओळख/व्यवसाय">
@@ -95,11 +101,16 @@
         </div>
 
         <!-- Quick Notes & Cloud Docs -->
-        <div style="border-bottom: 1px solid #2e5a40; padding-bottom: 15px; margin-bottom: 15px;">
+        <div class="section-box">
             <h3>☁️ क्लाउड नोट्स व डॉक्युमेंट्स</h3>
             <textarea id="quickNote" placeholder="तुमच्या महत्त्वाच्या नोंदी येथे लिहा..."></textarea>
-            <button onclick="saveNote()">क्लाउडवर सेव्ह करा</button>
+            <button onclick="saveNote()">क्लाउडवर नोट्स सेव्ह करा</button>
             <p id="noteStatus" style="font-size: 12px; color: #a8e6cf;"></p>
+            
+            <label style="margin-top: 10px; display: block;">फाइल अपलोड करा (PDF / Image):</label>
+            <input type="file" id="fileUploader">
+            <button onclick="uploadDocument()">फाइल क्लाउडवर टाка</button>
+            <p id="fileStatus" style="font-size: 12px; color: #a8e6cf;"></p>
         </div>
 
         <!-- Settings (Theme & About) -->
@@ -120,7 +131,6 @@
         </div>
     </div>
 
-    <!-- Firebase Script -->
     <script type="module" src="script.js"></script>
 </body>
 </html>
