@@ -3,20 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>माझा स्मार्ट डॅशबोर्ड</title>
+    <title>स्मार्ट डॅशबोर्ड - प्रगत आवृत्ती</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="dashboard-card">
-        <h1>स्वागत आहे, अवधूत! 🚀</h1>
-        <p>हा तुमचा स्वतःचा ऑल-इन-वन डॅशबोर्ड आहे.</p>
-        
-        <div class="box">
-            <h3>आजची नोंद (Notes)</h3>
-            <input type="text" id="userInput" placeholder="काहीतरी येथे लिहा...">
-            <button onclick="saveData()">सेव्ह करा</button>
-            <p id="output"></p>
+    <div class="dashboard-container">
+        <header>
+            <h1>⚡ स्मार्ट डॅशबोर्ड</h1>
+            <button onclick="toggleTheme()" class="theme-btn">मोड बदला</button>
+        </header>
+
+        <!-- नोट्स सेक्शन -->
+        <div class="card">
+            <h3>📝 जलद नोंदी (Quick Notes)</h3>
+            <textarea id="quickNote" placeholder="तुमची महत्त्वाची नोंद येथे लिहा..."></textarea>
+            <button onclick="saveNote()">नोंद सेव्ह करा</button>
+            <p id="noteStatus" class="success-msg"></p>
+        </div>
+
+        <!-- टू-डू लिस्ट सेक्शन -->
+        <div class="card">
+            <h3>✅ आजची कामे (To-Do List)</h3>
+            <div class="todo-input-box">
+                <input type="text" id="taskInput" placeholder="नवीन काम टाका...">
+                <button onclick="addTask()">पुश करा</button>
+            </div>
+            <ul id="taskList"></ul>
+        </div>
+
+        <!-- कॅल्क्युलेटर सेक्शन -->
+        <div class="card">
+            <h3>🧮 झटपट कॅल्क्युलेटर</h3>
+            <input type="text" id="calcInput" placeholder="उदा. 25 + 50">
+            <button onclick="calculate()">उत्तर काढा</button>
+            <p id="calcOutput" class="output-text"></p>
         </div>
     </div>
 
