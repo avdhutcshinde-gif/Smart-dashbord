@@ -3,59 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>स्मार्ट डॅशबोर्ड - युजर लॉगिन</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- jsPDF Library for PDF Generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <title>Smart Forest Dashboard</title>
+    <style>
+        :root {
+            --bg-color: #0f1d15;
+            --card-bg: #162b20;
+            --text-color: #e2f0d9;
+            --accent-color: #4CAF50;
+            --button-hover: #45a049;
+        }
+        body.light-theme {
+            --bg-color: #e8f5e9;
+            --card-bg: #ffffff;
+            --text-color: #1b382b;
+            --accent-color: #2e7d32;
+            --button-hover: #1b5e20;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            transition: background 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        h2, h3 { color: var(--accent-color); }
+        input, textarea, button, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: 1px solid #2e5a40;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-color);
+            box-sizing: border-box;
+        }
+        button {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover { background: var(--button-hover); }
+        .hidden { display: none; }
+        .activity-box {
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent-color);
+        }
+    </style>
 </head>
 <body>
 
-    <!-- लॉगिन / साईनअप सेक्शन (सुरवातीला दिसेल) -->
-    <div id="auth-container" class="card auth-card">
-        <h2>🔐 स्मार्ट डॅशबोर्ड लॉगिन</h2>
-        <input type="email" id="authEmail" placeholder="ईमेल आयडी टाka...">
+    <!-- Auth Container -->
+    <div id="auth-container" class="container">
+        <h2>🌲 कस्तुरीमर्ग स्मार्ट डॅशबोर्ड लॉगिन</h2>
+        <input type="email" id="authEmail" placeholder="ईमेल आयडी टाका...">
         <input type="password" id="authPassword" placeholder="पासवर्ड टाका...">
         <button onclick="handleLogin()">लग-इन करा</button>
-        <button onclick="handleSignup()" class="secondary-btn">नवीन अकाउंट बनवा (Signup)</button>
-        <p id="authMsg" class="error-msg"></p>
+        <button onclick="handleSignup()">नवीन अकाउंट बनवा (Signup)</button>
+        <p id="authMsg" style="color: #ff6b6b; font-size: 14px;"></p>
     </div>
 
-    <!-- मुख्य डॅशबोर्ड (लॉगिन झाल्यावर दिसेल) -->
-    <div id="dashboard-container" class="dashboard-container" style="display: none;">
-        <header>
-            <h1>⚡ स्मार्ट डॅशबोर्ड</h1>
-            <div>
-                <span id="userEmailDisplay" class="user-email"></span>
-                <button onclick="handleLogout()" class="logout-btn">बाहेर पडा (Logout)</button>
-            </div>
-        </header>
+    <!-- Dashboard Container -->
+    <div id="dashboard-container" class="container hidden">
+        <h2>🌿 स्वागत आहे, <span id="userEmailDisplay"></span></h2>
+        
+        <!-- Activity Tracker (Live Time, Date & Location) -->
+        <div class="activity-box" id="activityTracker">
+            📍 अ‍ॅक्टिव्हिटी लॉग लोड होत आहे...
+        </div>
 
-        <!-- नोट्स सेक्शन -->
-        <div class="card">
-            <h3>📝 जलद नोंदी (Quick Notes)</h3>
-            <textarea id="quickNote" placeholder="तुमची महत्त्वाची नोंद येथे लिहा..."></textarea>
+        <!-- Profile Section -->
+        <div style="border-bottom: 1px solid #2e5a40; padding-bottom: 15px; margin-bottom: 15px;">
+            <h3>👤 युजर प्रोफाइल</h3>
+            <input type="text" id="profileName" placeholder="तुमचे पूर्ण नाव टाका">
+            <input type="text" id="profileBio" placeholder="तुमची ओळख/व्यवसाय">
+            <button onclick="saveProfile()">प्रोफाइल सेव्ह करा</button>
+        </div>
+
+        <!-- Quick Notes & Cloud Docs -->
+        <div style="border-bottom: 1px solid #2e5a40; padding-bottom: 15px; margin-bottom: 15px;">
+            <h3>☁️ क्लाउड नोट्स व डॉक्युमेंट्स</h3>
+            <textarea id="quickNote" placeholder="तुमच्या महत्त्वाच्या नोंदी येथे लिहा..."></textarea>
             <button onclick="saveNote()">क्लाउडवर सेव्ह करा</button>
-            <p id="noteStatus" class="success-msg"></p>
+            <p id="noteStatus" style="font-size: 12px; color: #a8e6cf;"></p>
         </div>
 
-        <!-- टू-डू लिस्ट सेक्शन -->
-        <div class="card">
-            <h3>✅ आजची कामे (To-Do List)</h3>
-            <div class="todo-input-box">
-                <input type="text" id="taskInput" placeholder="नवीन काम टाका...">
-                <button onclick="addTask()">पुश करा</button>
+        <!-- Settings (Theme & About) -->
+        <div>
+            <h3>⚙️ सेटिंग्ज व अबाउट</h3>
+            <label>थीम निवडा:</label>
+            <select id="themeSelector" onchange="changeTheme()">
+                <option value="forest">संथ हिरवीगार (Forest Theme)</option>
+                <option value="light">उजेड थीम (Light Theme)</option>
+            </select>
+            
+            <div style="background: rgba(0,0,0,0.1); padding: 10px; margin-top: 10px; border-radius: 6px; font-size: 13px;">
+                <strong>अबाउट कस्तुरीमर्ग ॲप:</strong><br>
+                हे ॲप निसर्गातील कस्तुरीमर्गाप्रमाणे शांततेत आणि आनंदाने तुमच्या सर्व महत्त्वाच्या नोंदी, अचूक वेळ, तारीख आणि लोकेशन सुरक्षितपणे ट्रॅक करते.
             </div>
-            <ul id="taskList"></ul>
-        </div>
-
-        <!-- PDF डाऊनलोड सेक्शन -->
-        <div class="card">
-            <h3>📄 अहवाल (PDF Report)</h3>
-            <button onclick="downloadPDF()" class="pdf-btn">डेटाची PDF डाऊनलोड करा</button>
+            
+            <button onclick="handleLogout()" style="background: #d9534f; margin-top: 15px;">लॉग आउट करा</button>
         </div>
     </div>
 
-    <!-- Firebase App (Modular CDN) -->
+    <!-- Firebase Script -->
     <script type="module" src="script.js"></script>
 </body>
 </html>
