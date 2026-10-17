@@ -3,22 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>स्मार्ट डॅशबोर्ड - प्रगत आवृत्ती</title>
+    <title>स्मार्ट डॅशबोर्ड - युजर लॉगिन</title>
     <link rel="stylesheet" href="style.css">
+    <!-- jsPDF Library for PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 
-    <div class="dashboard-container">
+    <!-- लॉगिन / साईनअप सेक्शन (सुरवातीला दिसेल) -->
+    <div id="auth-container" class="card auth-card">
+        <h2>🔐 स्मार्ट डॅशबोर्ड लॉगिन</h2>
+        <input type="email" id="authEmail" placeholder="ईमेल आयडी टाka...">
+        <input type="password" id="authPassword" placeholder="पासवर्ड टाका...">
+        <button onclick="handleLogin()">लग-इन करा</button>
+        <button onclick="handleSignup()" class="secondary-btn">नवीन अकाउंट बनवा (Signup)</button>
+        <p id="authMsg" class="error-msg"></p>
+    </div>
+
+    <!-- मुख्य डॅशबोर्ड (लॉगिन झाल्यावर दिसेल) -->
+    <div id="dashboard-container" class="dashboard-container" style="display: none;">
         <header>
             <h1>⚡ स्मार्ट डॅशबोर्ड</h1>
-            <button onclick="toggleTheme()" class="theme-btn">मोड बदला</button>
+            <div>
+                <span id="userEmailDisplay" class="user-email"></span>
+                <button onclick="handleLogout()" class="logout-btn">बाहेर पडा (Logout)</button>
+            </div>
         </header>
 
         <!-- नोट्स सेक्शन -->
         <div class="card">
             <h3>📝 जलद नोंदी (Quick Notes)</h3>
             <textarea id="quickNote" placeholder="तुमची महत्त्वाची नोंद येथे लिहा..."></textarea>
-            <button onclick="saveNote()">नोंद सेव्ह करा</button>
+            <button onclick="saveNote()">क्लाउडवर सेव्ह करा</button>
             <p id="noteStatus" class="success-msg"></p>
         </div>
 
@@ -32,16 +48,15 @@
             <ul id="taskList"></ul>
         </div>
 
-        <!-- कॅल्क्युलेटर सेक्शन -->
+        <!-- PDF डाऊनलोड सेक्शन -->
         <div class="card">
-            <h3>🧮 झटपट कॅल्क्युलेटर</h3>
-            <input type="text" id="calcInput" placeholder="उदा. 25 + 50">
-            <button onclick="calculate()">उत्तर काढा</button>
-            <p id="calcOutput" class="output-text"></p>
+            <h3>📄 अहवाल (PDF Report)</h3>
+            <button onclick="downloadPDF()" class="pdf-btn">डेटाची PDF डाऊनलोड करा</button>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Firebase App (Modular CDN) -->
+    <script type="module" src="script.js"></script>
 </body>
 </html>
 

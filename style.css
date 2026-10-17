@@ -8,9 +8,14 @@ body {
     justify-content: center;
 }
 
-.dashboard-container {
+.dashboard-container, .auth-card {
     width: 100%;
     max-width: 450px;
+}
+
+.auth-card {
+    margin-top: 50px;
+    text-align: center;
 }
 
 header {
@@ -21,7 +26,7 @@ header {
 }
 
 h1 {
-    font-size: 22px;
+    font-size: 20px;
     margin: 0;
     color: #38bdf8;
 }
@@ -60,22 +65,37 @@ button {
     background-color: #3b82f6;
     color: white;
     border: none;
-    padding: 8px 14px;
+    padding: 10px 14px;
     border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
     width: 100%;
+    margin-top: 5px;
 }
 
 button:hover {
     background-color: #2563eb;
 }
 
-.theme-btn {
-    width: auto;
+.secondary-btn {
     background-color: #475569;
+}
+
+.logout-btn {
+    width: auto;
+    background-color: #ef4444;
     font-size: 12px;
-    padding: 6px 10px;
+    padding: 5px 10px;
+}
+
+.pdf-btn {
+    background-color: #10b981;
+}
+
+.user-email {
+    font-size: 11px;
+    color: #94a3b8;
+    display: block;
 }
 
 .todo-input-box {
@@ -89,6 +109,7 @@ button:hover {
 
 .todo-input-box button {
     width: 30%;
+    margin-top: 0;
 }
 
 ul {
@@ -112,24 +133,8 @@ li.completed {
     margin: 5px 0 0 0;
 }
 
-.output-text {
-    font-weight: bold;
-    color: #38bdf8;
-    margin: 5px 0 0 0;
+.error-msg {
+    color: #f87171;
+    font-size: 13px;
+    margin-top: 10px;
 }
-
-/* लाईट मोडसाठी क्लास */
-body.light-mode {
-    background-color: #f1f5f9;
-    color: #0f172a;
-}
-body.light-mode .card {
-    background-color: #ffffff;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-body.light-mode input, body.light-mode textarea {
-    background-color: #f8fafc;
-    color: #000;
-    border: 1px solid #cbd5e1;
-}
-
